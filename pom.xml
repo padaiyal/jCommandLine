@@ -6,12 +6,14 @@
 
   <groupId>org.padaiyal.utilities</groupId>
   <artifactId>commandline</artifactId>
-  <version>2021.01.17</version>
+  <version>2021.01.22</version>
+
+  <url>https://github.com/padaiyal/jCommandLine.git</url>
 
   <parent>
     <groupId>org.padaiyal</groupId>
     <artifactId>popper</artifactId>
-    <version>2021.01.09</version>
+    <version>2021.01.22</version>
     <relativePath>jPopper</relativePath>
   </parent>
 
@@ -22,4 +24,41 @@
       <url>https://maven.pkg.github.com/padaiyal/jCommandLine</url>
     </repository>
   </distributionManagement>
+
+  <properties>
+    <dependency.mockito.version>3.7.7</dependency.mockito.version>
+    <dependency.jProperties.version>2021.01.13</dependency.jProperties.version>
+    <dependency.jI18n.version>2021.01.14</dependency.jI18n.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.padaiyal.utilities</groupId>
+      <artifactId>properties</artifactId>
+      <version>${dependency.jProperties.version}</version>
+      <scope>system</scope>
+      <systemPath>${pom.basedir}/properties-${dependency.jProperties.version}.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>org.padaiyal.utilities</groupId>
+      <artifactId>i18n</artifactId>
+      <version>${dependency.jI18n.version}</version>
+      <scope>system</scope>
+      <systemPath>${pom.basedir}/i18n-${dependency.jI18n.version}.jar</systemPath>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${dependency.mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.mockito/mockito-inline -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-inline</artifactId>
+      <version>${dependency.mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>
