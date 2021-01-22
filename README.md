@@ -7,11 +7,11 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 <div align="center">
-  <h1 align="center">Project Name</h1>
+  <h1 align="center">jCommandLine</h1>
   <p align="center">
-    A template for Java maven projects.
+    A library that can be used to execute commands in a shell or terminal.
     <br />
-    <a href="https://github.com/padaiyal/jMavenProjectTemplate/issues/new/choose">Report Bug/Request Feature</a>
+    <a href="https://github.com/padaiyal/jCommandLine/issues/new/choose">Report Bug/Request Feature</a>
   </p>
 
 [![Contributors][contributors-shield]][contributors-url]
@@ -19,15 +19,15 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![Apache License][license-shield]][license-url] <br>
-![Maven build - Ubuntu latest](https://github.com/padaiyal/jMavenProjectTemplate/workflows/Maven%20build%20-%20Ubuntu%20latest/badge.svg?branch=main)
-![Maven build - Windows latest](https://github.com/padaiyal/jMavenProjectTemplate/workflows/Maven%20build%20-%20Windows%20latest/badge.svg?branch=main)
-![Maven build - MacOS latest](https://github.com/padaiyal/jMavenProjectTemplate/workflows/Maven%20build%20-%20MacOS%20latest/badge.svg?branch=main)
-![Publish to GitHub packages](https://github.com/padaiyal/jMavenProjectTemplate/workflows/Publish%20to%20GitHub%20packages/badge.svg)
+![Maven build - Ubuntu latest](https://github.com/padaiyal/jCommandLine/workflows/Maven%20build%20-%20Ubuntu%20latest/badge.svg?branch=main)
+![Maven build - Windows latest](https://github.com/padaiyal/jCommandLine/workflows/Maven%20build%20-%20Windows%20latest/badge.svg?branch=main)
+![Maven build - MacOS latest](https://github.com/padaiyal/jCommandLine/workflows/Maven%20build%20-%20MacOS%20latest/badge.svg?branch=main)
+![Publish to GitHub packages](https://github.com/padaiyal/jCommandLine/workflows/Publish%20to%20GitHub%20packages/badge.svg)
 </div>
 
 <!--
 *** To avoid retyping too much info. Do a search and replace with your text editor for the following:
-    'jMavenProjectTemplate'
+    'jCommandLine'
  -->
 
 <!-- TABLE OF CONTENTS -->
@@ -54,15 +54,67 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Describe the project.
+A library that can be used to execute commands in a shell or terminal.
 
 <!-- USAGE -->
 ## Usage
-Specify the steps to set up and use the project.
+This project is to be used as a dependency to other projects.
+Adding this project as a dependency is as follows:
+ 1. Download the latest jar for this project from [GitHub packages](https://github.com/orgs/padaiyal/packages?repo_name=jCommandLine) and place it within 
+    the dependant project.
+ 2. Add the following dependency tag to the pom.xml of the dependant project:
+    ```
+    <dependency>
+        <groupId>org.java.padaiyal.utilities</groupId>
+        <artifactId>commandline</artifactId>
+        <version>2021.01.22</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/<PATH_TO_JAR></systemPath>
+    </dependency>
+    ```
+    NOTE: Refer the [GitHub packages](https://github.com/orgs/padaiyal/packages?repo_name=jCommandLine) 
+    / [releases](https://github.com/padaiyal/jCommandLine/releases) section for this repo to know 
+    the latest released version of this project.
+
+Here's a sample snippet showing the usage of CommandLineUtility:
+```
+Command command = new Command();
+
+// Set equivalent commands for different command lines.
+command.setCommand(CommandLine.BASH, "ls -al /");
+command.setCommand(CommandLine.CMD, "dir");
+command.setCommand(CommandLine.POWERSHELL, "dir");
+command.setCommand(CommandLine.ZSH, "ls -al /");
+
+Duration timeOutDuration = Duration.ofSeconds(5);
+
+...
+
+/*
+Execute command and obtain response. The CommandLinUtility tries to identify appropriate 
+command lines to run the command in by identifying the operating system.
+*/
+Response response1 = CommandLineUtility.executeCommand(command, duration);
+
+// Executes the command specified using BASH and obtains the response 
+Response response2 = CommandLineUtility.executeCommand(command, CommandLine.BASH, duration); 
+
+// Command return code.
+int returnCode = response1.getReturnCode();
+
+// STDOUT content.
+String stdOut = response1.getOutput(StdType.STDOUT);
+
+// STDERR content.
+String stdErr = response1.getOutput(StdType.STDERR);
+
+...
+```
+For more such examples, checkout [CommandLineUtilityTest](https://github.com/padaiyal/jCommandLine/tree/main/src/test/java/org/padaiyal/utilities/commandline/CommandLineUtilityTest.java)
 
 <!-- ROADMAP -->
 ## Roadmap
-See the [open issues](https://github.com/padaiyal/jMavenProjectTemplate/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/padaiyal/jCommandLine/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -77,18 +129,18 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- LICENSE -->
 ## License
-Distributed under the Apache License. See [`LICENSE`](https://github.com/padaiyal/jMavenProjectTemplate/blob/main/LICENSE) for more information.
+Distributed under the Apache License. See [`LICENSE`](https://github.com/padaiyal/jCommandLine/blob/main/LICENSE) for more information.
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/padaiyal/jMavenProjectTemplate.svg?style=for-the-badge
-[contributors-url]: https://github.com/padaiyal/jMavenProjectTemplate/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/padaiyal/jMavenProjectTemplate.svg?style=for-the-badge
-[forks-url]: https://github.com/padaiyal/jMavenProjectTemplate/network/members
-[stars-shield]: https://img.shields.io/github/stars/padaiyal/jMavenProjectTemplate.svg?style=for-the-badge
-[stars-url]: https://github.com/padaiyal/jMavenProjectTemplate/stargazers
-[issues-shield]: https://img.shields.io/github/issues/padaiyal/jMavenProjectTemplate.svg?style=for-the-badge
-[issues-url]: https://github.com/padaiyal/jMavenProjectTemplate/issues
-[license-shield]: https://img.shields.io/github/license/padaiyal/jMavenProjectTemplate.svg?style=for-the-badge
-[license-url]: https://github.com/padaiyal/jMavenProjectTemplate/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/padaiyal/jCommandLine.svg?style=for-the-badge
+[contributors-url]: https://github.com/padaiyal/jCommandLine/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/padaiyal/jCommandLine.svg?style=for-the-badge
+[forks-url]: https://github.com/padaiyal/jCommandLine/network/members
+[stars-shield]: https://img.shields.io/github/stars/padaiyal/jCommandLine.svg?style=for-the-badge
+[stars-url]: https://github.com/padaiyal/jCommandLine/stargazers
+[issues-shield]: https://img.shields.io/github/issues/padaiyal/jCommandLine.svg?style=for-the-badge
+[issues-url]: https://github.com/padaiyal/jCommandLine/issues
+[license-shield]: https://img.shields.io/github/license/padaiyal/jCommandLine.svg?style=for-the-badge
+[license-url]: https://github.com/padaiyal/jCommandLine/blob/master/LICENSE.txt
